@@ -1,0 +1,2 @@
+# przebiegZmiennosciFunkcji
+Projekt na matematykę 
