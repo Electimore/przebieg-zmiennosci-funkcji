@@ -8,6 +8,7 @@
       async=""
       src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
     ></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
   </head>
   <body>
     <h1>Przebieg zmienności funkcji</h1>
@@ -76,7 +77,9 @@
       <span class="math display"> \[x^{2}+5x+4=0\] </span>
       <span class="math display"> \[\Delta = 9, \sqrt{\Delta}=3\] </span>
       <span class="math display"> \[x_1=-4, x_2=-1\] </span>
-      <p>wykres ova der</p>
+      <div style="width: 70%; height: 25%; margin-left: 15%;">
+        <canvas id="DerChart" width="70px" height="25px"></canvas>
+      </div>
       <span class="math display">
         \[f\nearrow\left ( -\infty, -4 \right >, \left < -1, 2 \right ), \left (
         2, \infty \right ) \]
@@ -95,7 +98,8 @@
       >
     </div>
     <div>
-      <table>
+      <h2 align="middle">9. Tabelka:</h2>
+      <table style="margin-left: 20%; width: 60%;">
         <tr>
           <th><span class="math display">\[x\]</span></th>
           <th><span class="math display">\[\left(\infty,-4\right)\]</span></th>
@@ -135,7 +139,239 @@
       </table>
     </div>
     <div>
-      <p>Wykresiki</p>
+      <h2 align="middle">10. Wykres funkcji:</h2>
+      <div style="width: 70%; height: 70%; margin-left: 15%;">
+        <canvas id="mainChart" width="100px" height="100px"></canvas>
+      </div>
     </div>
+
+    <script>
+    function MainChart(){
+      var xValues = [];
+    var yValues = [];
+    var as_pion = [];
+    var as_poziom = [];
+    var OX = [];
+    var OY = [];
+
+    generateData_xyasPion("(x*x+2*x+1)/(x*x-4)", -10, -4, 0.01);
+    generateData_xyasPion("(x*x+2*x+1)/(x*x-4)", -4, -2, 0.01, true);
+    generateData_xyasPion("(x*x+2*x+1)/(x*x-4)", -2, -1, 0.01);
+    generateData_xyasPion("(x*x+2*x+1)/(x*x-4)", -1, 2, 0.01, true);
+    generateData_xyasPion("(x*x+2*x+1)/(x*x-4)", 2, 10, 0.01);
+    generateData_OX(-10, 10, 0.01);
+    generateData_OY(-10, 10, 0.01);
+    generateData_asPoziom(-10, 10, 0.01);
+
+    const myChart = new Chart("mainChart", {
+    type: 'line',
+    data: {
+        labels: xValues,
+        datasets: [
+        {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(255,255,255,1.0)",
+            borderColor: "rgba(255,255,255,1.0)",
+            data: yValues,
+        },
+        {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(252, 186, 3,0.4)",
+            borderColor: "rgba(252, 186, 3,0.4)",
+            data: as_pion,
+        },
+        {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(252, 186, 3,0.4)",
+            borderColor: "rgba(252, 186, 3,0.4)",
+            data: as_poziom,
+        },
+        {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(255,255,255,0.4)",
+            borderColor: "rgba(255,255,255,0.4)",
+            data: OX,
+        },
+        {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(255,255,255,0.4)",
+            borderColor: "rgba(255,255,255,0.4)",
+            data: OY,
+        }
+      ]
+    },
+    options: {
+      plugins:{
+        legend: { display: false },
+      },
+      scales:{
+        y: {
+          max:10,
+          min:-10,
+          ticks: {
+            stepSize: 1,
+          }
+        },
+        x:{
+          type: 'linear',
+          max:10,
+          min:-10,
+          ticks: {
+            stepSize: 1,
+          }
+        }
+      }
+      } 
+    });
+      
+      function generateData_xyasPion(equation, start, end, step, drawAS){
+        for (let x = start; x<=end-step; x+=step){
+          xValues.push(x);
+          yValues.push(eval(equation));
+          as_pion.push('a');
+        }
+        if(drawAS){
+          as_pion.push('10');
+          as_pion.push('-10');
+        }
+      }
+      function generateData_asPoziom(start, end, step){
+        for (let x = start; x<=end; x+=step){
+          as_poziom.push('1');
+        }
+      }
+      function generateData_OY(start, end, step){
+        for (let x = start; x<=end; x+=step){
+          OY.push('0');
+        }
+      }
+      function generateData_OX(start, end, step){
+        for (let x = start; x<=end; x+=step){
+          OX.push('0');
+        }
+      }
+    }
+    function DerivativeChart(){
+      var xValues = [];
+      var yValues = [];
+      var OX = [];
+      var OY = [];
+      var p_0 = [];
+      var forb = [];
+
+      generateData_xyforbp_0("-2*x*x-10*x-8", -10, -4, 0.01, true, false);
+      generateData_xyforbp_0("-2*x*x-10*x-8", -4, -2, 0.01, false, true);
+      generateData_xyforbp_0("-2*x*x-10*x-8", -2, -1, 0.01, true, false);
+      generateData_xyforbp_0("-2*x*x-10*x-8", -1, 2, 0.01, false, true);
+      generateData_xyforbp_0("-2*x*x-10*x-8", 2, 10, 0.01, false, false);
+      generateData_OXY(-10, 10, 0.01);
+
+      const myChart = new Chart("DerChart", {
+        type: 'line',
+        data: {
+          labels: xValues,
+          datasets: [
+          {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(255,255,255,1.0)",
+            borderColor: "rgba(255,255,255,1.0)",
+            data: yValues,
+          },
+          {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(252, 186, 3,1)",
+            borderColor: "rgba(252, 186, 3,1)",
+            data: p_0,
+          },
+          {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(255, 0, 0,1)",
+            borderColor: "rgba(255, 0, 0,1)",
+            data: forb,
+          },
+          {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(255,255,255,0.4)",
+            borderColor: "rgba(255,255,255,0.4)",
+            data: OX,
+          },
+          {
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            backgroundColor: "rgba(255,255,255,0.4)",
+            borderColor: "rgba(255,255,255,0.4)",
+            data: OY,
+          }
+        ]
+      },
+      options: {
+        plugins:{
+          legend: { display: false },
+        },
+        scales:{
+          y: {
+            max:6,
+            min:-6,
+            ticks: {
+              stepSize: 2,
+          }
+          },
+          x:{
+            type: 'linear',
+            max:3,
+            min:-6,
+            ticks: {
+              stepSize: 1,
+            }
+          }
+        }
+      } 
+    });
+
+    function generateData_xyforbp_0(equation, start, end, step, p0=false, fr=false){
+      for (let x = start; x<=end-step; x+=step){
+        xValues.push(x);
+        yValues.push(eval(equation));
+        p_0.push('a');
+        forb.push('a');
+      }
+      if(p0){
+        p_0.push('0.5');
+        p_0.push('-0.5');
+      }
+      if(fr){
+        forb.push('0.5');
+        forb.push('-0.5');
+      }
+    }
+    function generateData_OXY(start, end, step){
+      for (let x = start; x<=end; x+=step){
+        OX.push('0');
+        OY.push('0');
+      }
+    }
+  }
+    MainChart();
+    DerivativeChart();
+    </script>
   </body>
 </html>
