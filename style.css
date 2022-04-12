@@ -7,26 +7,26 @@ body {
 h1 {
   font-family: "Raleway", sans-serif;
   font-weight: 500;
-  font-size: 200%;
+  font-size: 300%;
   color: #fff;
 }
 
 h2 {
   font-family: "Raleway", sans-serif;
   font-weight: 300;
-  font-size: 140%;
+  font-size: 220%;
   color: #fff;
 }
 
 p {
   font-family: "Raleway", sans-serif;
   font-weight: 100;
-  font-size: 80%;
+  font-size: 140%;
   color: #fff;
 }
 
 span {
-  font-size: 100%;
+  font-size: 105%;
   color: #fff;
 }
 
@@ -70,8 +70,8 @@ th {
 .block {
   border-radius: 10px;
   background-color: #1f2224;
-  width: 80%;
-  margin-left: 10%;
+  width: 60%;
+  margin-left: 20%;
   padding: 10px;
   margin-bottom: 10px;
 }
