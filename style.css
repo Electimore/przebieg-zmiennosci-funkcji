@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500&display=swap");
+
+body {
+  background-color: #181a1b;
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 300%;
+  color: #fff;
+}
+
+h2 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 220%;
+  color: #fff;
+}
+
+p {
+  font-family: "Raleway", sans-serif;
+  font-weight: 100;
+  font-size: 140%;
+  color: #fff;
+}
+
+span {
+  font-size: 103%;
+  color: #fff;
+}
+
+table {
+  /* border: 1px solid white; */
+  border-collapse: collapse;
+  text-align: center;
+  margin: auto;
+  width: 800px;
+}
+td,
+th {
+  border: 1px solid white;
+  padding: 8px;
+  text-align: center;
+}
+
+.tableThing {
+  width: auto;
+  height: auto;
+  overflow-x: auto;
+  margin: 10px;
+  background-color: #1f2224;
+}
+
+.tableThing::-webkit-scrollbar {
+  background-color: #1f2224;
+  width: 8px;
+  height: 8px;
+}
+.tableThing::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.tableThing::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(45deg, #fffb00, #ffae00);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
+}
+
+.block {
+  border-radius: 10px;
+  background-color: #1f2224;
+  width: 80%;
+  margin-left: 10%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
